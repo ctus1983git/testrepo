@@ -12,6 +12,7 @@ jobs:
    - name: executebuild repository
      run: "exucutingbuild"
  deploy:
+  needs: build
   runs-on: ubuthu-latest
   steps:
    - name: "exucutingdeploy"

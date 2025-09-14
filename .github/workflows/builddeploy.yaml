@@ -3,19 +3,19 @@ on:
   workflow_dispatch:
     inputs:
       dev:
-        description: 'Run Stage 1'
+        description: 'Run dev'
         required: true
         default: 'true'
         type: choice
         options: ['true', 'false']
       stage:
-        description: 'Run Stage 2'
+        description: 'Run Stage'
         required: true
         default: 'false'
         type: choice
         options: ['true', 'false']
       prod_dr:
-        description: 'Run Stage 3'
+        description: 'Run prod & dr'
         required: true
         default: 'true'
         type: choice

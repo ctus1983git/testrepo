@@ -24,6 +24,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.dev == 'true' }}
     steps:
       - name: checkout repository
         uses: actions/checkout@v4

@@ -1,7 +1,31 @@
 name: build and deploy
 on:
- push:
-  branches: ["main"]
+ workflow_dispatch:
+    inputs:
+      dev:
+        description: 'Run Stage 1'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      stage:
+        description: 'Run Stage 2'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      prod-dr:
+        description: 'Run Stage 3'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
  build:
@@ -13,6 +37,31 @@ jobs:
      run: "exucutingbuild"
  deploy:
   needs: build
+  if: ${{ github.event.inputs.dev == 'true' }}
+  runs-on: ubuthu-latest
+  steps:
+   - name: "exucutingdeploy"
+     run: "exucutingdeploy"
+
+deploy-test:
+  needs: artifact
+  if: ${{ github.event.inputs.stage == 'true' }}
+  runs-on: ubuthu-latest
+  steps:
+   - name: "exucutingdeploy"
+     run: "exucutingdeploy"
+
+deploy-prod:
+  needs: artifact
+  if: ${{ github.event.inputs.prod_dr == 'true' }}
+  runs-on: ubuthu-latest
+  steps:
+   - name: "exucutingdeploy"
+     run: "exucutingdeploy"
+
+deploy-dr:
+  needs: artifact
+  if: ${{ github.event.inputs.prod_dr == 'true' }}
   runs-on: ubuthu-latest
   steps:
    - name: "exucutingdeploy"
